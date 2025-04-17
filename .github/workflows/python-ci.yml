@@ -1,0 +1,52 @@
+# .github/workflows/python-ci.yml
+
+name: Python CI Pipeline # Name of the workflow visible on GitHub Actions tab
+
+# Controls when the workflow will run
+on:
+  push:
+    branches: [ main ] # Run on pushes to the main branch
+  pull_request:
+    branches: [ main ] # Run on pull requests targeting the main branch
+
+jobs:
+  build-and-test:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false # Don't cancel all jobs if one Python version fails
+      matrix:
+        # Run the job against multiple Python versions
+        python-version: ["3.8", "3.9", "3.10", "3.11", "3.12"]
+
+    steps:
+      # 1. Check out the repository code so the workflow can access it
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      # 2. Set up the specified Python version from the matrix
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      # 3. Install dependencies
+      # It's good practice to upgrade pip first
+      # Install project dependencies AND development dependencies (like pytest and linters)
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      # 4. Lint code with Ruff (modern, fast linter/formatter)
+      # This step checks for code style issues and common errors
+      - name: Lint with Ruff
+        run: |
+          ruff check . --output-format=github
+          ruff format . --check # Check formatting without changing files
+
+      # 5. Run tests using pytest
+      # The core part of the CI for this project
+      - name: Test with pytest
+        run: |
+          pytest
