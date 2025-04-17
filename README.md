@@ -22,25 +22,21 @@ This project covers essential testing techniques for:
 ## 📑 Repository Structure
 
 ```
-pytesting-projects/ 
-├── <project_modules>/ 
-│ └──
-│ │ └── .py 
-├── tests/ 
-│ └──
-│ │ └── test_.py 
-├── README.md 
-├── requirements.txt 
-└── pytest.ini
+pytesting-projects/  
+├── <project_folder>/  
+│   ├── <source_code_folder>/  
+│   │   └── .py  
+│   └── tests/  
+│       └── test_<module>.py  
+├── <another_project_folder>/  
+│   ├── <source_code_folder>/  
+│   │   └── .py  
+│   └── tests/  
+│       └── test_<module>.py  
+├── README.md  
+├── requirements.txt  
+└── pytest.ini  
 
-pytesting-projects/ 
-├── simple_ecommerce/ 
-│ └── orders.py 
-├── tests/ 
-│ └── test_orders.py 
-├── README.md 
-├── requirements.txt 
-└── pytest.ini
 ```
 
 ---
