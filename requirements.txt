@@ -1,0 +1,6 @@
+# Testing framework
+pytest
+pytest-mock
+
+# Linter/Formatter
+ruff
